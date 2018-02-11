@@ -1,0 +1,559 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework Week 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework}{%
+\subsection{Homework}\label{homework}}
+
+    \hypertarget{history-of-probability}{%
+\subsubsection{1. History of Probability}\label{history-of-probability}}
+
+It is said that de Mere had been betting that, in four rolls of a die,
+at least one six would turn up. He was winning consistently and, to get
+more people to play, he changed the game to bet that, in 24 rolls of two
+dice, a pair of sixes would turn up. It is claimed that de Mere lost
+with 24 and felt that 25 rolls were necessary to make the game
+favorable. It was un grand scandale that mathematics was wrong.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}1. Write function to sample from die}
+        \PY{c+c1}{\PYZsh{}2. Write loop or function to tally sucess vs failure (define sucess?)}
+        \PY{c+c1}{\PYZsh{}3. Run 10000 trials}
+        \PY{c+c1}{\PYZsh{}4. Calculate probabilities for 24 rolls and 25 rolls}
+        
+        \PY{c+c1}{\PYZsh{}1.}
+        chevalier \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}n\PY{p}{)}\PY{p}{\PYZob{}}
+          a \PY{o}{=} \PY{k+kp}{sample}\PY{p}{(}x\PY{p}{,}n\PY{p}{,}replace \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+          \PY{k+kr}{return}\PY{p}{(}a\PY{p}{)}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{}2. \PYZsh{}3.}
+        
+        
+        
+        die \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{6}\PY{p}{)}
+        prob \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}n\PY{p}{)}\PY{p}{\PYZob{}}
+            m\PY{o}{=}\PY{l+m}{10000}
+            a \PY{o}{=} \PY{k+kt}{character}\PY{p}{(}m\PY{p}{)} \PY{c+c1}{\PYZsh{}create an empty vector of m number of characters}
+            mul \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}create an empty list to get all our results}
+            res \PY{o}{=} \PY{k+kt}{vector}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}m\PY{p}{)}\PY{p}{\PYZob{}}
+             res \PY{o}{=} chevalier\PY{p}{(}die\PY{p}{,}n\PY{p}{)}
+             mul\PY{p}{[[}i\PY{p}{]]}\PY{o}{=}res
+            \PY{c+c1}{\PYZsh{} List contains multiple vectors}
+            \PY{c+c1}{\PYZsh{} Call element in list use double [[]]}
+            
+            inds \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}res \PY{o}{\PYZpc{}in\PYZpc{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{6}\PY{p}{)}\PY{p}{)}
+            
+             \PY{k+kr}{if} \PY{p}{(}\PY{k+kp}{length}\PY{p}{(}res\PY{p}{[}inds\PY{p}{]}\PY{p}{)}\PY{o}{\PYZgt{}=}\PY{l+m}{2}\PY{p}{)}\PY{p}{\PYZob{}}
+                 a\PY{p}{[}i\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{TRUE\PYZdq{}}
+             \PY{p}{\PYZcb{}}
+             \PY{k+kp}{else}\PY{p}{\PYZob{}}
+                 a\PY{p}{[}i\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{FALSE\PYZdq{}}
+             \PY{p}{\PYZcb{}}
+         \PY{p}{\PYZcb{}}
+            \PY{k+kr}{return} \PY{p}{(}\PY{k+kp}{table}\PY{p}{(}a\PY{p}{)}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TRUE\PYZdq{}}\PY{p}{]}\PY{o}{/}m\PY{p}{)}
+            
+        \PY{p}{\PYZcb{}}
+        
+        prob24 \PY{o}{=} prob\PY{p}{(}\PY{l+m}{24}\PY{p}{)}
+        prob25 \PY{o}{=} prob\PY{p}{(}\PY{l+m}{25}\PY{p}{)}
+        
+        prob24
+        prob25
+\end{Verbatim}
+
+
+    \textbf{TRUE:} 0.9263
+
+    
+    \textbf{TRUE:} 0.9384
+
+    
+    \hypertarget{addition-rule}{%
+\subsection{2. Addition rule}\label{addition-rule}}
+
+\hypertarget{find-the-probabilities-using-the-table}{%
+\paragraph{Find the probabilities using the
+table}\label{find-the-probabilities-using-the-table}}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Type O or AB.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Type A or AB.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Type AB or Rh negative.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Type O and Negative.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Type AB
+\end{enumerate}
+\end{quote}
+
+    \begin{longtable}[]{@{}llllll@{}}
+\toprule
+Type & O & A & B & AB & Total\tabularnewline
+\midrule
+\endhead
+Positive & 163 & 662 & 1513 & 1603 & 3941\tabularnewline
+Negative & 224 & 933 & 2400 & 2337 & 5894\tabularnewline
+Total & 387 & 1595 & 3913 & 3940 & 9835\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+m}{1}\PY{l+m}{.} \PY{p}{(}\PY{l+m}{387}\PY{l+m}{+3940}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{9835}\PY{p}{)}\PY{o}{=}\PY{l+m}{0.44}
+        \PY{l+m}{2}\PY{l+m}{.} \PY{p}{(}\PY{l+m}{1595}\PY{l+m}{+3940}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{9835}\PY{p}{)}\PY{o}{=}\PY{l+m}{0.56}
+        \PY{l+m}{3}\PY{l+m}{.} \PY{p}{(}\PY{l+m}{3940}\PY{l+m}{+5894}\PY{l+m}{\PYZhy{}2337}\PY{p}{)}\PY{o}{/}\PY{l+m}{9835}\PY{o}{=}\PY{l+m}{0.76}
+        \PY{l+m}{4}\PY{l+m}{.}  \PY{l+m}{224}\PY{o}{/}\PY{l+m}{9835}\PY{o}{=}\PY{l+m}{0.02}
+        \PY{l+m}{5}\PY{l+m}{.}  \PY{l+m}{3940}\PY{o}{/}\PY{l+m}{9835}\PY{o}{=}\PY{l+m}{0.40}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        Error in parse(text = x, srcfile = src): <text>:2:0: unexpected end of input
+    1: 1. (387+3940)/(9835)=
+       \^{}
+    Traceback:
+
+
+    \end{Verbatim}
+
+    \hypertarget{multiplication-rule}{%
+\subsubsection{3. Multiplication Rule}\label{multiplication-rule}}
+
+\hypertarget{from-this-exercises-if-i-roll-5-dice-what-is-the-chance-of-getting-all-sixes-what-is-the-chance-of-getting-no-sixes}{%
+\subparagraph{From this exercises: If I roll 5 dice, what is the chance
+of getting all sixes? What is the chance of getting no
+sixes?}\label{from-this-exercises-if-i-roll-5-dice-what-is-the-chance-of-getting-all-sixes-what-is-the-chance-of-getting-no-sixes}}
+
+Write a simulation in R to obtain the probabilities for each of these
+two exercises running 10000 trials
+
+Hint.
+
+Remember that the change to get all 6 in 5 rolls is \((1/6)^5\)
+
+and to get no sixes is \((5/6)^5\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}All sixes}
+         \PY{c+c1}{\PYZsh{}1. Write function to sample from die}
+         \PY{c+c1}{\PYZsh{}2. Write function to determine if in each 5 rolls we get all sixes (6*5) }
+         \PY{c+c1}{\PYZsh{}3. Run 10000 trials \PYZhy{} Hint check sapply function}
+         \PY{c+c1}{\PYZsh{}4. Calculate probability}
+         
+         chevalier \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}n\PY{p}{)}\PY{p}{\PYZob{}}
+           a \PY{o}{=} \PY{k+kp}{sample}\PY{p}{(}x\PY{p}{,}n\PY{p}{,}replace \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+           \PY{k+kr}{return}\PY{p}{(}a\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         die \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{6}\PY{p}{)}
+         
+         prob \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}count\PY{p}{)}\PY{p}{\PYZob{}}
+             n\PY{o}{=}\PY{l+m}{5}
+             m\PY{o}{=}\PY{l+m}{10000}
+             a \PY{o}{=} \PY{k+kt}{character}\PY{p}{(}m\PY{p}{)} \PY{c+c1}{\PYZsh{}create an empty vector of m number of characters}
+             mul \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}create an empty list to get all our results}
+             res \PY{o}{=} \PY{k+kt}{vector}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}m\PY{p}{)}\PY{p}{\PYZob{}}
+              res \PY{o}{=} chevalier\PY{p}{(}die\PY{p}{,}n\PY{p}{)}
+              mul\PY{p}{[[}i\PY{p}{]]}\PY{o}{=}res
+             \PY{c+c1}{\PYZsh{} List contains multiple vectors}
+             \PY{c+c1}{\PYZsh{} Call element in list use double [[]]}
+             
+             inds \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{which}\PY{p}{(}res \PY{o}{\PYZpc{}in\PYZpc{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{6}\PY{p}{)}\PY{p}{)}
+             
+              \PY{k+kr}{if} \PY{p}{(}\PY{k+kp}{length}\PY{p}{(}res\PY{p}{[}inds\PY{p}{]}\PY{p}{)}\PY{o}{==}count\PY{p}{)}\PY{p}{\PYZob{}}
+                  a\PY{p}{[}i\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{TRUE\PYZdq{}}
+              \PY{p}{\PYZcb{}}
+              \PY{k+kp}{else}\PY{p}{\PYZob{}}
+                  a\PY{p}{[}i\PY{p}{]}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{FALSE\PYZdq{}}
+              \PY{p}{\PYZcb{}}
+          \PY{p}{\PYZcb{}}
+             \PY{k+kr}{return} \PY{p}{(}\PY{k+kp}{table}\PY{p}{(}a\PY{p}{)}\PY{p}{[}\PY{l+s}{\PYZdq{}}\PY{l+s}{TRUE\PYZdq{}}\PY{p}{]}\PY{o}{/}m\PY{p}{)}
+             
+         \PY{p}{\PYZcb{}}
+         
+         prob\PY{p}{(}\PY{l+m}{5}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}No sixes}
+         
+         \PY{c+c1}{\PYZsh{}1. Write function to sample from die \PYZhy{} \PYZhy{} Hint check sapply function \PYZhy{}}
+         \PY{c+c1}{\PYZsh{}2. Write function to determine if in each 5 rolls we get no sixes (6*5)}
+         \PY{c+c1}{\PYZsh{}3. Run 10000 trials }
+         \PY{c+c1}{\PYZsh{}4. Calculate probability}
+         
+         prob\PY{p}{(}\PY{l+m}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{TRUE:} 1e-04
+
+    
+    \textbf{TRUE:} 0.4021
+
+    
+    \hypertarget{conditional-probability}{%
+\subsubsection{4. Conditional
+Probability}\label{conditional-probability}}
+
+Consider a family that has three children. We are interested in the
+children's genders. Our sample space is
+S=\{(G,G,G),(G,G,B),(G,B,G),(G,B,B),(B,G,G),(B,G,B),(B,B,G),(B,B,B)\}.
+Also assume that all eight possible outcomes are equally likely.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  What is the probability that the three children are girls given that
+  the first child is a girl?
+\item
+  What is the probability that At least two children are boys given that
+  the first child is a boy?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{l+m}{1}\PY{l+m}{.} A\PY{o}{:} all three children are girls
+           B\PY{o}{:} the first child is girl
+           P\PY{p}{(}A\PY{o}{|}B\PY{p}{)}\PY{o}{=}P\PY{p}{(}A and B\PY{p}{)}\PY{o}{/}P\PY{p}{(}B\PY{p}{)} \PY{o}{=} P\PY{p}{(}A\PY{p}{)}\PY{o}{/}P\PY{p}{(}B\PY{p}{)}\PY{o}{=}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{8}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}
+        
+        \PY{l+m}{2}\PY{l+m}{.} A\PY{o}{:} At least two children are boys
+           B\PY{o}{:} the first child is a boy
+           P\PY{p}{(}A\PY{o}{|}B\PY{p}{)} \PY{o}{=} P\PY{p}{(}A and B\PY{p}{)}\PY{o}{/}P\PY{p}{(}B\PY{p}{)} \PY{o}{=} \PY{p}{(}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{8}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}\PY{o}{=}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        Error in parse(text = x, srcfile = src): <text>:1:4: unexpected symbol
+    1: 1. A
+           \^{}
+    Traceback:
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
