@@ -1,0 +1,693 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework 3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{homework-3}{%
+\subsection{Homework 3}\label{homework-3}}
+
+    \hypertarget{section}{%
+\subparagraph{1.}\label{section}}
+
+let's assume that two candidates are running in an election for Governor
+of California. This fictitious election pits Mr.~Gubinator
+vs.~Mr.~Ventura. We would like to know who is winning the race, and
+therefore we conduct a poll of likely voters in California. If the poll
+gives the voters a choice between the two candidates, then the results
+can be reasonably modeled with the Binomial Distribution. States polls
+indicate that 62\% of the population intend to vote for Mr.~Gubinator.
+
+Calculate the binomial probabilities, and CF (confidence interval):
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  in a random sample of 50 we find 10 likely voters
+\item
+  in a random sample of 50 we find at least 3 likely voters
+\item
+  What is the average and standard deviation of the number of voters
+  that we will find in our random sample?
+\item
+  plot the PMF and CMF from this random sample
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} a.}
+        a \PY{o}{=} dbinom\PY{p}{(}\PY{l+m}{10}\PY{p}{,}size\PY{o}{=}\PY{l+m}{50}\PY{p}{,}prob\PY{o}{=}\PY{l+m}{.62}\PY{p}{)}
+        a
+        \PY{k+kn}{library}\PY{p}{(}binom\PY{p}{)}
+        binom.confint\PY{p}{(}\PY{l+m}{10}\PY{p}{,} \PY{l+m}{50}\PY{p}{,} conf.level \PY{o}{=} \PY{l+m}{0.95}\PY{p}{)}
+\end{Verbatim}
+
+
+    1.33945315982445e-09
+
+    
+    \begin{tabular}{r|llllll}
+ method & x & n & mean & lower & upper\\
+\hline
+	 agresti-coull & 10            & 50            & 0.2000000     & 0.11050245    & 0.3323061    \\
+	 asymptotic    & 10            & 50            & 0.2000000     & 0.08912769    & 0.3108723    \\
+	 bayes         & 10            & 50            & 0.2058824     & 0.10116836    & 0.3171207    \\
+	 cloglog       & 10            & 50            & 0.2000000     & 0.10318339    & 0.3196686    \\
+	 exact         & 10            & 50            & 0.2000000     & 0.10030224    & 0.3371831    \\
+	 logit         & 10            & 50            & 0.2000000     & 0.11113040    & 0.3332899    \\
+	 probit        & 10            & 50            & 0.2000000     & 0.10792338    & 0.3279450    \\
+	 profile       & 10            & 50            & 0.2000000     & 0.10570710    & 0.3242950    \\
+	 lrt           & 10            & 50            & 0.2000000     & 0.10568422    & 0.3242911    \\
+	 prop.test     & 10            & 50            & 0.2000000     & 0.10502158    & 0.3414368    \\
+	 wilson        & 10            & 50            & 0.2000000     & 0.11243750    & 0.3303711    \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} b.}
+         \PY{c+c1}{\PYZsh{} in a random sample of 50 we find 1 likely voter, 2 likely voters, and no likely voters}
+         b1 \PY{o}{=} dbinom\PY{p}{(}\PY{l+m}{1}\PY{p}{,}size\PY{o}{=}\PY{l+m}{50}\PY{p}{,}prob\PY{o}{=}\PY{l+m}{.62}\PY{p}{)}
+         b2 \PY{o}{=} dbinom\PY{p}{(}\PY{l+m}{2}\PY{p}{,}size\PY{o}{=}\PY{l+m}{50}\PY{p}{,}prob\PY{o}{=}\PY{l+m}{.62}\PY{p}{)}
+         b3 \PY{o}{=} dbinom\PY{p}{(}\PY{l+m}{0}\PY{p}{,}size\PY{o}{=}\PY{l+m}{50}\PY{p}{,}prob\PY{o}{=}\PY{l+m}{.62}\PY{p}{)}
+         b \PY{o}{=} \PY{l+m}{1}\PY{o}{\PYZhy{}}b1\PY{o}{\PYZhy{}}b2\PY{o}{\PYZhy{}}b3
+         b
+         
+         b\PY{o}{=}\PY{l+m}{0}
+         \PY{k+kr}{for} \PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{2}\PY{o}{:}\PY{l+m}{50}\PY{p}{)}\PY{p}{\PYZob{}}
+             b\PY{o}{=}b\PY{o}{+}dbinom\PY{p}{(}i\PY{p}{,}size\PY{o}{=}\PY{l+m}{50}\PY{p}{,}prob\PY{o}{=}\PY{l+m}{.62}\PY{p}{)}
+             
+         \PY{p}{\PYZcb{}}
+         b
+\end{Verbatim}
+
+
+    1
+
+    
+    1
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} c.}
+         \PY{c+c1}{\PYZsh{} The mean of the distribution is 50*0.62=31}
+         \PY{c+c1}{\PYZsh{} standard deviation is sqrt(50*0.62*(1\PYZhy{}0.62)) = 3.43}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} d.}
+         pmf \PY{o}{\PYZlt{}\PYZhy{}} dbinom\PY{p}{(}\PY{l+m}{0}\PY{o}{:}\PY{l+m}{50}\PY{p}{,} size \PY{o}{=} \PY{l+m}{50}\PY{p}{,} prob \PY{o}{=} \PY{l+m}{0.62}\PY{p}{)}
+         plot\PY{p}{(}pmf\PY{p}{,} type \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{h\PYZdq{}}\PY{p}{,} ylim\PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0.5}\PY{p}{)}\PY{p}{)}
+         points\PY{p}{(}pmf\PY{p}{,}pch\PY{o}{=}\PY{l+m}{19}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} plot\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{51}\PY{p}{,}\PY{k+kp}{cumsum}\PY{p}{(}pmf\PY{p}{)}\PY{p}{,} type \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{l\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{section}{%
+\subparagraph{2.}\label{section}}
+
+What are all the possible codon arrangements available during
+translation in genetics? explain
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m}{4}\PY{o}{\PYZca{}}\PY{l+m}{3} \PY{o}{=} \PY{l+m}{64}
+        
+        We have \PY{l+m}{4} types \PY{p}{(}A\PY{p}{,}U\PY{p}{,}C\PY{p}{,}G\PY{p}{)}\PY{l+m}{.} For each position \PY{k+kr}{in} codon\PY{p}{,} we can have \PY{l+m}{4} choices. Then\PY{p}{,} the 
+        possible codon arrangements is \PY{l+m}{64}\PY{l+m}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{library}\PY{p}{(}gtools\PY{p}{)}
+         subun \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{A\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{U\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{C\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{G\PYZdq{}}\PY{p}{)}
+         permutations\PY{p}{(}\PY{l+m}{4}\PY{p}{,}\PY{l+m}{3}\PY{p}{,} subun\PY{p}{,}repeats.allowed \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{lll}
+	 A & A & A\\
+	 A & A & C\\
+	 A & A & G\\
+	 A & A & U\\
+	 A & C & A\\
+	 A & C & C\\
+	 A & C & G\\
+	 A & C & U\\
+	 A & G & A\\
+	 A & G & C\\
+	 A & G & G\\
+	 A & G & U\\
+	 A & U & A\\
+	 A & U & C\\
+	 A & U & G\\
+	 A & U & U\\
+	 C & A & A\\
+	 C & A & C\\
+	 C & A & G\\
+	 C & A & U\\
+	 C & C & A\\
+	 C & C & C\\
+	 C & C & G\\
+	 C & C & U\\
+	 C & G & A\\
+	 C & G & C\\
+	 C & G & G\\
+	 C & G & U\\
+	 C & U & A\\
+	 C & U & C\\
+	 ⋮ & ⋮ & ⋮\\
+	 G & A & G\\
+	 G & A & U\\
+	 G & C & A\\
+	 G & C & C\\
+	 G & C & G\\
+	 G & C & U\\
+	 G & G & A\\
+	 G & G & C\\
+	 G & G & G\\
+	 G & G & U\\
+	 G & U & A\\
+	 G & U & C\\
+	 G & U & G\\
+	 G & U & U\\
+	 U & A & A\\
+	 U & A & C\\
+	 U & A & G\\
+	 U & A & U\\
+	 U & C & A\\
+	 U & C & C\\
+	 U & C & G\\
+	 U & C & U\\
+	 U & G & A\\
+	 U & G & C\\
+	 U & G & G\\
+	 U & G & U\\
+	 U & U & A\\
+	 U & U & C\\
+	 U & U & G\\
+	 U & U & U\\
+\end{tabular}
+
+
+    
+    \hypertarget{section}{%
+\subparagraph{3.}\label{section}}
+
+Find the number of three-digit integers that have either 2 or 7 in the
+tens digit and 2 in the units digit?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} For the hundred digit\PY{p}{,} we have \PY{l+m}{1}\PY{o}{\PYZti{}}\PY{l+m}{9} \PY{l+m}{9} choices. For tens digit we have \PY{l+m}{2} choices. And the units 
+        digit only has \PY{l+m}{1} choice. 
+        \PY{l+m}{9}\PY{o}{*}\PY{l+m}{2}\PY{o}{*}\PY{l+m}{1} \PY{o}{=} \PY{l+m}{18}
+\end{Verbatim}
+
+
+    \hypertarget{section}{%
+\subparagraph{4.}\label{section}}
+
+Write a function in R that calculates nPk and nCk, and answer the
+following questions keeping in mind the type of arrangement asked
+(Permutations or combinations):
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \tightlist
+  \item
+    How many ways can we give awards to the first 3 places (gold,silver
+    and bronze) among eight contestants?
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Claire took 12 photos. She wants to put 5 of them on Facebook. How
+    many groups of photos are possible?
+  \end{enumerate}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} perm \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}n\PY{p}{,} r\PY{p}{)}\PY{p}{\PYZob{}}
+           \PY{k+kr}{return}\PY{p}{(}\PY{k+kp}{factorial}\PY{p}{(}n\PY{p}{)}\PY{o}{/}\PY{k+kp}{factorial}\PY{p}{(}n \PY{o}{\PYZhy{}} r\PY{p}{)}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         
+         comb \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kr}{function}\PY{p}{(}n\PY{p}{,} r\PY{p}{)}\PY{p}{\PYZob{}}
+           \PY{k+kr}{return}\PY{p}{(} \PY{k+kp}{factorial}\PY{p}{(}n\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{k+kp}{factorial}\PY{p}{(}n\PY{o}{\PYZhy{}}r\PY{p}{)} \PY{o}{*} \PY{k+kp}{factorial}\PY{p}{(}r\PY{p}{)}\PY{p}{)} \PY{p}{)}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} a. perm\PY{p}{(}\PY{l+m}{8}\PY{p}{,}\PY{l+m}{3}\PY{p}{)} \PY{o}{=}\PY{l+m}{336}
+\end{Verbatim}
+
+
+    336
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} b. comb\PY{p}{(}\PY{l+m}{12}\PY{p}{,}\PY{l+m}{5}\PY{p}{)} \PY{o}{=}\PY{l+m}{792}
+\end{Verbatim}
+
+
+    792
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} comb\PY{p}{(}\PY{l+m}{8}\PY{p}{,}\PY{l+m}{7}\PY{p}{)}
+\end{Verbatim}
+
+
+    8
+
+    
+    \hypertarget{section}{%
+\subparagraph{5.}\label{section}}
+
+Seven friends went to watch a game. They were supposed to occupy seat
+numbers 50 to 57. In how many different ways can they do it?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} They need to choose \PY{l+m}{7} seats from \PY{l+m}{8} available seats\PY{p}{(}\PY{l+m}{50}\PY{o}{\PYZti{}}\PY{l+m}{57}\PY{p}{)}\PY{l+m}{.} If the seats order matters\PY{p}{,} then 
+        there are perm\PY{p}{(}\PY{l+m}{8}\PY{p}{,}\PY{l+m}{7}\PY{p}{)}\PY{o}{=}\PY{l+m}{40320} different ways. If we only consider those as a group\PY{p}{,} then there 
+        are comb\PY{p}{(}\PY{l+m}{8}\PY{p}{,}\PY{l+m}{7}\PY{p}{)}\PY{o}{=}\PY{l+m}{8} different ways.
+\end{Verbatim}
+
+
+    \hypertarget{section}{%
+\subparagraph{6.}\label{section}}
+
+A famous example of a markov chain is the recruitment probabilities for
+males in some ivy leave schools in the past, where Harvard, Dartmouth,
+and Yale admitted only male students. Assume that, at that time, 80
+percent of the sons of Harvard men went to Harvard and the rest went to
+Yale, 40 percent of the sons of Yale men went to Yale, and the rest
+split evenly between Harvard and Dartmouth; and of the sons of Dartmouth
+men, 70 percent went to Dartmouth, 20 percent to Harvard, and 10 percent
+to Yale.
+
+Draw the transition matrix, plot the transition diagram and answer:
+
+Calculate the probability that a grandson from Yale went to Harvard Draw
+the transition matrix after 5 generations
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{k+kn}{library}\PY{p}{(}markovchain\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Lets define our states}
+         universityStates \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Harvard\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Dartmouth\PYZdq{}}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Yale\PYZdq{}}\PY{p}{)}
+         byRow \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kc}{TRUE}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}lets create the transitional matrix}
+         admitMatrix \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{matrix}\PY{p}{(}data \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0.8}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.2}\PY{p}{,}
+                                          \PY{l+m}{0.2}\PY{p}{,} \PY{l+m}{0.7}\PY{p}{,} \PY{l+m}{0.1}\PY{p}{,}
+                                          \PY{l+m}{0.3}\PY{p}{,} \PY{l+m}{0.3}\PY{p}{,} \PY{l+m}{0.4}\PY{p}{)}\PY{p}{,} byrow \PY{o}{=} byRow\PY{p}{,} nrow \PY{o}{=} \PY{l+m}{3}\PY{p}{,}
+                                 dimnames \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}universityStates\PY{p}{,} universityStates\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}make the matrix a markovchain class}
+         mcUniversity \PY{o}{\PYZlt{}\PYZhy{}} new\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{markovchain\PYZdq{}}\PY{p}{,} states \PY{o}{=} universityStates\PY{p}{,} byrow \PY{o}{=} byRow\PY{p}{,}
+                          transitionMatrix \PY{o}{=} admitMatrix\PY{p}{,} name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{University\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}define the initial state}
+         initialState \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} admitMatrix
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lll}
+  & Harvard & Dartmouth & Yale\\
+\hline
+	Harvard & 0.8 & 0.0 & 0.2\\
+	Dartmouth & 0.2 & 0.7 & 0.1\\
+	Yale & 0.3 & 0.3 & 0.4\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} mcUniversity
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+University 
+ A  3 - dimensional discrete Markov Chain defined by the following states: 
+ Harvard, Dartmouth, Yale 
+ The transition matrix  (by rows)  is defined as follows: 
+          Harvard Dartmouth Yale
+Harvard       0.8       0.0  0.2
+Dartmouth     0.2       0.7  0.1
+Yale          0.3       0.3  0.4
+
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} grandson \PY{o}{\PYZlt{}\PYZhy{}} initialState \PY{o}{*} \PY{p}{(}mcUniversity \PY{o}{\PYZca{}}\PY{l+m}{2}\PY{p}{)}
+         grandson
+\end{Verbatim}
+
+
+    \begin{tabular}{lll}
+ Harvard & Dartmouth & Yale\\
+\hline
+	 0.33 & 0.52 & 0.15\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} the probability that a grandson from Yale went to Harvard\PY{o}{:} \PY{l+m}{0.33}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} after5gen \PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}mcUniversity \PY{o}{\PYZca{}}\PY{l+m}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} after5gen
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+University^5 
+ A  3 - dimensional discrete Markov Chain defined by the following states: 
+ Harvard, Dartmouth, Yale 
+ The transition matrix  (by rows)  is defined as follows: 
+          Harvard Dartmouth    Yale
+Harvard   0.59006   0.17778 0.23216
+Dartmouth 0.49883   0.29620 0.20497
+Yale      0.52602   0.25935 0.21463
+
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
