@@ -1,0 +1,899 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Exam 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{exam-1}{%
+\section{Exam 1}\label{exam-1}}
+
+\hypertarget{read-each-question-carefully-and-use-r-to-show-how-you-calculated-each-answer}{%
+\subsubsection{Read each question carefully and use R to show how you
+calculated each
+answer}\label{read-each-question-carefully-and-use-r-to-show-how-you-calculated-each-answer}}
+
+    \hypertarget{in-a-congested-city-when-it-rains-which-happens-one-third-of-the-days-there-is-50-probability-that-there-will-be-heavy-traffic.-on-the-other-hand-if-it-doesnt-rain-then-the-probability-gets-reduced-to-only-25.-now-if-its-rainy-and-there-is-heavy-traffic-there-is-50-chance-hat-i-will-arrive-late-to-work-but-only-18-if-it-is-sunny-and-no-traffic.-i-will-be-late-only-14-of-the-time-if-there-is-rain-and-no-traffic-or-not-rain-and-traffic.}{%
+\subsubsection{1. In a congested city when it rains (which happens one
+third of the days), there is 50\% probability that there will be heavy
+traffic. On the other hand, if it doesn't rain, then the probability
+gets reduced to only 25\%. Now, if its rainy and there is heavy traffic,
+there is 50\% chance hat I will arrive late to work, but only 1/8 if it
+is sunny and no traffic. I will be late only 1/4 of the time if there is
+rain and no traffic or not rain and
+traffic.}\label{in-a-congested-city-when-it-rains-which-happens-one-third-of-the-days-there-is-50-probability-that-there-will-be-heavy-traffic.-on-the-other-hand-if-it-doesnt-rain-then-the-probability-gets-reduced-to-only-25.-now-if-its-rainy-and-there-is-heavy-traffic-there-is-50-chance-hat-i-will-arrive-late-to-work-but-only-18-if-it-is-sunny-and-no-traffic.-i-will-be-late-only-14-of-the-time-if-there-is-rain-and-no-traffic-or-not-rain-and-traffic.}}
+
+ If I today I arrived late to work, what is the probability that we had
+rain that day.?
+
+Hint (you can use tree diagrams and conditional probabilities to find
+the answer)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}install.packages(\PYZdq{}igraph\PYZdq{})}
+        \PY{k+kn}{library}\PY{p}{(}igraph\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} g \PY{o}{\PYZlt{}\PYZhy{}} graph.tree\PY{p}{(}n \PY{o}{=} \PY{l+m}{2}\PY{o}{\PYZca{}}\PY{l+m}{4} \PY{o}{\PYZhy{}} \PY{l+m}{1}\PY{p}{,} children \PY{o}{=} \PY{l+m}{2}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{} we need four levels including the root (15 nodes), and each parent having two children}
+        \PY{c+c1}{\PYZsh{} Rain/Not Rain; Heavy Traffic/ Not Heavy Traffic; Late/Not Late}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Lets add the node labels}
+        n\PYZus{}l \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Rain\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Sunny\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Traffic\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Not Traffic\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Traffic\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Not Traffic\PYZdq{}}\PY{p}{)}
+        node\PYZus{}labels \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}n\PYZus{}l\PY{p}{,}\PY{k+kp}{replicate}\PY{p}{(}\PY{l+m}{4}\PY{p}{,}\PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Late\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Not Late\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        node\PYZus{}labels
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item ''
+\item 'Rain'
+\item 'Sunny'
+\item 'Traffic'
+\item 'Not Traffic'
+\item 'Traffic'
+\item 'Not Traffic'
+\item 'Late'
+\item 'Not Late'
+\item 'Late'
+\item 'Not Late'
+\item 'Late'
+\item 'Not Late'
+\item 'Late'
+\item 'Not Late'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} edge\PYZus{}labels \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{2/3\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{3/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/2\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{3/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{3/4\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{1/8\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{7/8\PYZdq{}}\PY{p}{)}
+        edge\PYZus{}label2 \PY{o}{=} edge\PYZus{}labels
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Assign Color}
+        V\PY{p}{(}g\PY{p}{)}\PY{o}{\PYZdl{}}color \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}C4D8E2\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}V(g)\PYZdl{}color[3] \PYZlt{}\PYZhy{} \PYZdq{}white\PYZdq{}}
+        \PY{c+c1}{\PYZsh{}V(g)\PYZdl{}color[4] \PYZlt{}\PYZhy{} \PYZdq{}green\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{}assign position}
+        coords \PY{o}{\PYZlt{}\PYZhy{}} layout\PYZus{}\PY{p}{(}g\PY{p}{,} as\PYZus{}tree\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        coord2 \PY{o}{=} \PY{k+kt}{matrix}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{o}{\PYZhy{}}coords\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,}\PY{o}{\PYZhy{}}coords\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}ncol \PY{o}{=} \PY{l+m}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} plot\PY{p}{(}g\PY{p}{,}
+             layout \PY{o}{=} coord2\PY{p}{,}           \PY{c+c1}{\PYZsh{} draw graph as tree}
+             vertex.size \PY{o}{=} \PY{l+m}{20}\PY{p}{,}                  \PY{c+c1}{\PYZsh{} node size}
+             vertex.color \PY{o}{=} V\PY{p}{(}g\PY{p}{)}\PY{o}{\PYZdl{}}color\PY{p}{,}          \PY{c+c1}{\PYZsh{} node color}
+             vertex.label \PY{o}{=} node\PYZus{}labels\PY{p}{,}        \PY{c+c1}{\PYZsh{} node labels}
+             vertex.label.cex \PY{o}{=} \PY{l+m}{1}\PY{p}{,}             \PY{c+c1}{\PYZsh{} node label size}
+             vertex.label.family \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Helvetica\PYZdq{}}\PY{p}{,} \PY{c+c1}{\PYZsh{} node label family}
+             vertex.label.font \PY{o}{=} \PY{l+m}{2}\PY{p}{,}             \PY{c+c1}{\PYZsh{} node label type (bold)}
+             vertex.label.color \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsh{}000000\PYZsq{}}\PY{p}{,}    \PY{c+c1}{\PYZsh{} node label size}
+             edge.label \PY{o}{=} edge\PYZus{}label2\PY{p}{,}          \PY{c+c1}{\PYZsh{} edge labels}
+             edge.label.cex \PY{o}{=} \PY{l+m}{.7}\PY{p}{,}               \PY{c+c1}{\PYZsh{} edge label size}
+             edge.label.family \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Helvetica\PYZdq{}}\PY{p}{,}   \PY{c+c1}{\PYZsh{} edge label family}
+             edge.label.font \PY{o}{=} \PY{l+m}{1}\PY{p}{,}               \PY{c+c1}{\PYZsh{} edge label font type (bold)}
+             edge.label.color \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZsh{}000000\PYZsq{}}\PY{p}{,}      \PY{c+c1}{\PYZsh{} edge label color}
+             edge.arrow.size \PY{o}{=} \PY{l+m}{0.2}\PY{p}{,}              \PY{c+c1}{\PYZsh{} arrow size}
+             edge.arrow.width \PY{o}{=} \PY{l+m}{1}              \PY{c+c1}{\PYZsh{} arrow width}
+        \PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} P\PY{p}{(}L\PY{o}{|}R\PY{p}{)}\PY{o}{*}P\PY{p}{(}R\PY{p}{)}\PY{o}{=}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{2}\PY{o}{*}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{*}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{12}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{24}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{8}
+        P\PY{p}{(}Late\PY{p}{)}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{o}{*}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{24}\PY{l+m}{+2}\PY{o}{/}\PY{l+m}{3}\PY{o}{*}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{16}\PY{l+m}{+2}\PY{o}{/}\PY{l+m}{3}\PY{o}{*}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{o}{*}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{8}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{12}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{24}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{24}\PY{l+m}{+1}\PY{o}{/}\PY{l+m}{16}\PY{o}{=}\PY{l+m}{11}\PY{o}{/}\PY{l+m}{48}
+        P\PY{p}{(}Rain\PY{o}{|}Late\PY{p}{)}\PY{o}{=}P\PY{p}{(}L\PY{o}{|}R\PY{p}{)}\PY{o}{*}P\PY{p}{(}R\PY{p}{)}\PY{o}{/}P\PY{p}{(}Late\PY{p}{)}\PY{o}{=} \PY{l+m}{6}\PY{o}{/}\PY{l+m}{11}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        Error in 1/12 + 1/24 = 1/8: target of assignment expands to non-language object
+    Traceback:
+
+
+    \end{Verbatim}
+
+    \hypertarget{we-classify-2000-email-in-two-groups-1000-emails-as-spam-and-1000-emails-as-non-spam.-210-of-the-spam-emails-contained-the-phrase-this-isnt-spam-99-had-the-word-prize-and-110-the-word-prince.-of-the-99-that-contained-the-word-prize-79-also-contained-the-word-prince.-on-the-other-hand-of-the-1000-non-spam-emails-only-23-had-the-phrase-this-isnt-spam-80-the-word-prize-and-110-the-word-prince.-of-the-80-that-contained-the-word-prize-8-also-contained-the-word-prince.}{%
+\subsubsection{2. we classify 2000 email in two groups: 1000 emails as
+spam and 1000 emails as non-spam. 210 of the spam emails contained the
+phrase This isn't spam, 99 had the word prize and 110 the word prince.
+Of the 99 that contained the word prize, 79 also contained the word
+prince. On the other hand, of the 1000 non-spam emails, only 23 had the
+phrase this isn't spam, 80 the word prize and 110 the word prince. Of
+the 80 that contained the word prize 8 also contained the word
+prince.}\label{we-classify-2000-email-in-two-groups-1000-emails-as-spam-and-1000-emails-as-non-spam.-210-of-the-spam-emails-contained-the-phrase-this-isnt-spam-99-had-the-word-prize-and-110-the-word-prince.-of-the-99-that-contained-the-word-prize-79-also-contained-the-word-prince.-on-the-other-hand-of-the-1000-non-spam-emails-only-23-had-the-phrase-this-isnt-spam-80-the-word-prize-and-110-the-word-prince.-of-the-80-that-contained-the-word-prize-8-also-contained-the-word-prince.}}
+
+ Assuming that the a priori probability of any message being spam is
+0.5, what is the probability that an email is spam given it contains the
+phrase This isn't spam
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} A\PY{o}{:} Contains This is not spam
+        P\PY{p}{(}A\PY{o}{|}spam\PY{p}{)}\PY{o}{=}\PY{l+m}{210}\PY{o}{/}\PY{l+m}{1000}\PY{o}{=}\PY{l+m}{0.21}
+        P\PY{p}{(}A\PY{p}{)}\PY{o}{=}\PY{p}{(}\PY{l+m}{210}\PY{l+m}{+23}\PY{p}{)}\PY{o}{/}\PY{l+m}{2000}\PY{o}{=}\PY{l+m}{0.1165}
+        P\PY{p}{(}spam\PY{o}{|}A\PY{p}{)}\PY{o}{=}P\PY{p}{(}A\PY{o}{|}spam\PY{p}{)}\PY{o}{*}P\PY{p}{(}spam\PY{p}{)}\PY{o}{/}P\PY{p}{(}A\PY{p}{)}\PY{o}{=}\PY{l+m}{0.21}\PY{o}{*}\PY{l+m}{0.5}\PY{o}{/}\PY{l+m}{0.1165}\PY{o}{=}\PY{l+m}{0.90}
+\end{Verbatim}
+
+
+    \hypertarget{the-blood-transfusion-service-center-in-hsin-chu-city-taiwan-collects-data-to-understand-donation-habits-from-a-center-that-passes-their-blood-transfusion-service-bus-to-one-university-in-hsin-chu-city.-data-is-collected-on-whether-the-person-donates-or-not-in-march-as-a-binary-variable-and-multiple-categorical-variables-data-obtained-from-httparchive.ics.uci.edumlmachine-learning-databasesblood-transfusion}{%
+\subsubsection{\texorpdfstring{3. The Blood Transfusion Service Center
+in Hsin-Chu City, Taiwan collects data to understand donation habits
+from a center that passes their blood transfusion service bus to one
+university in Hsin-Chu City. Data is collected on whether the person
+donates or not in March as a binary variable, and multiple categorical
+variables (data obtained from
+\url{http://archive.ics.uci.edu/ml/machine-learning-databases/blood-transfusion/})}{3. The Blood Transfusion Service Center in Hsin-Chu City, Taiwan collects data to understand donation habits from a center that passes their blood transfusion service bus to one university in Hsin-Chu City. Data is collected on whether the person donates or not in March as a binary variable, and multiple categorical variables (data obtained from http://archive.ics.uci.edu/ml/machine-learning-databases/blood-transfusion/)}}\label{the-blood-transfusion-service-center-in-hsin-chu-city-taiwan-collects-data-to-understand-donation-habits-from-a-center-that-passes-their-blood-transfusion-service-bus-to-one-university-in-hsin-chu-city.-data-is-collected-on-whether-the-person-donates-or-not-in-march-as-a-binary-variable-and-multiple-categorical-variables-data-obtained-from-httparchive.ics.uci.edumlmachine-learning-databasesblood-transfusion}}
+
+\hypertarget{r-recency---months-since-last-donation}{%
+\paragraph{R (Recency - months since last
+donation),}\label{r-recency---months-since-last-donation}}
+
+\hypertarget{f-frequency---total-number-of-donation}{%
+\paragraph{F (Frequency - total number of
+donation),}\label{f-frequency---total-number-of-donation}}
+
+\hypertarget{m-monetary---total-blood-donated-in-c.c.}{%
+\paragraph{M (Monetary - total blood donated in
+c.c.),}\label{m-monetary---total-blood-donated-in-c.c.}}
+
+\hypertarget{t-time---months-since-first-donation-and}{%
+\paragraph{T (Time - months since first donation),
+and}\label{t-time---months-since-first-donation-and}}
+
+ Using contingency tables, calculate the probability that a person
+donates blood in march given that they donated blood in a Frequency
+between 18 and 33 times The frequency variable should be converted to a
+three way categorical variable 1 = 1-17; 2 = 18-33; 3 = 34-50
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} transfusion \PY{o}{=} read.csv\PY{p}{(}file \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{transfusion.csv\PYZdq{}}\PY{p}{,}header\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,} sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}transfusion}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} transfusion\PY{o}{\PYZdl{}}Frequency\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{cut}\PY{p}{(}transfusion\PY{o}{\PYZdl{}}Frequency\PY{p}{,} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{17}\PY{p}{,}\PY{l+m}{33}\PY{p}{,}\PY{l+m}{50}\PY{p}{)}\PY{p}{,}labels\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{3}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}transfusion}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} install.packages\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{dplyr\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The downloaded binary packages are in
+	/var/folders/79/jxb90vv11gvb4bfw9cs5\_kg00000gn/T//RtmpUSyLLQ/downloaded\_packages
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} install.packages\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{igraph\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+The downloaded binary packages are in
+	/var/folders/79/jxb90vv11gvb4bfw9cs5\_kg00000gn/T//RtmpUSyLLQ/downloaded\_packages
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Warning message:
+“package ‘stats’ is not available (for R version 3.4.3)”Warning message:
+“package ‘stats’ is a base package, and should not be updated”Warning message:
+“package ‘base’ is not available (for R version 3.4.3)”Warning message:
+“package ‘base’ is a base package, and should not be updated”
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ggplot2\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{dplyr\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{reshape2\PYZdq{}}\PY{p}{)}
+         \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{knitr\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} transfusion.March.freq.df \PY{o}{\PYZlt{}\PYZhy{}}
+           transfusion \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           group\PYZus{}by\PY{p}{(}Donated\PYZus{}In\PYZus{}March\PY{p}{,} Frequency\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           summarize\PY{p}{(}n \PY{o}{=} n\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} transfusion.March.freq.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           dcast\PY{p}{(}Donated\PYZus{}In\PYZus{}March \PY{o}{\PYZti{}} Frequency\PY{p}{,} value.var \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{n\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           kable\PY{p}{(}align \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{l\PYZdq{}}\PY{p}{,} format \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{markdown\PYZdq{}}\PY{p}{,}
+                 table.attr\PY{o}{=}\PY{l+s}{\PYZsq{}}\PY{l+s}{class=\PYZdq{}table table\PYZhy{}striped table\PYZhy{}hover\PYZdq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+
+|Donated_In_March |1   |2  |3  |
+|:----------------|:---|:--|:--|
+|0                |561 |7  |2  |
+|1                |165 |8  |5  |
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} transfusion.March.freq.prop.df \PY{o}{\PYZlt{}\PYZhy{}} 
+           transfusion.March.freq.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           ungroup\PY{p}{(}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           mutate\PY{p}{(}prop \PY{o}{=} n \PY{o}{/} \PY{k+kp}{sum}\PY{p}{(}n\PY{p}{)}\PY{p}{)}
+         
+         transfusion.March.freq.prop.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           dcast\PY{p}{(}Donated\PYZus{}In\PYZus{}March \PY{o}{\PYZti{}} Frequency\PY{p}{,} value.var \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{prop\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           kable\PY{p}{(}align \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{l\PYZdq{}}\PY{p}{,} format \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{markdown\PYZdq{}}\PY{p}{,} 
+                 table.attr \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{class=\PYZdq{}table table\PYZhy{}striped table\PYZhy{}hover\PYZdq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+
+|Donated_In_March |1         |2         |3         |
+|:----------------|:---------|:---------|:---------|
+|0                |0.7500000 |0.0093583 |0.0026738 |
+|1                |0.2205882 |0.0106952 |0.0066845 |
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} March.marginal.df \PY{o}{\PYZlt{}\PYZhy{}} 
+           transfusion.March.freq.prop.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           group\PYZus{}by\PY{p}{(}Donated\PYZus{}In\PYZus{}March\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           summarize\PY{p}{(}marginal \PY{o}{=} \PY{k+kp}{sum}\PY{p}{(}prop\PY{p}{)}\PY{p}{)}
+         
+         freq.marginal.df \PY{o}{\PYZlt{}\PYZhy{}} 
+           transfusion.March.freq.prop.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           group\PYZus{}by\PY{p}{(}Frequency\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           summarize\PY{p}{(}marginal \PY{o}{=} \PY{k+kp}{sum}\PY{p}{(}prop\PY{p}{)}\PY{p}{)}
+         
+         transfusion.March.freq.prop.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           dcast\PY{p}{(}Donated\PYZus{}In\PYZus{}March \PY{o}{\PYZti{}} Frequency\PY{p}{,} value.var \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{prop\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+           left\PYZus{}join\PY{p}{(}March.marginal.df\PY{p}{,} by \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Donated\PYZus{}In\PYZus{}March\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+         \PY{c+c1}{\PYZsh{}   bind\PYZus{}rows(}
+         \PY{c+c1}{\PYZsh{}     freq.marginal.df \PYZpc{}\PYZgt{}\PYZpc{}}
+         \PY{c+c1}{\PYZsh{}       mutate(Donated\PYZus{}In\PYZus{}March = \PYZdq{}marginal\PYZdq{}) \PYZpc{}\PYZgt{}\PYZpc{}}
+         \PY{c+c1}{\PYZsh{}       dcast(Donated\PYZus{}In\PYZus{}March \PYZti{} Frequency, value.var = \PYZdq{}marginal\PYZdq{})}
+         \PY{c+c1}{\PYZsh{}   ) \PYZpc{}\PYZgt{}\PYZpc{}}
+           kable\PY{p}{(}align \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{l\PYZdq{}}\PY{p}{,} format \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{markdown\PYZdq{}}\PY{p}{,}
+                 table.attr \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{class=\PYZdq{}table table\PYZhy{}striped table\PYZhy{}hover\PYZdq{}\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+
+|Donated_In_March |1         |2         |3         |marginal  |
+|:----------------|:---------|:---------|:---------|:---------|
+|0                |0.7500000 |0.0093583 |0.0026738 |0.7620321 |
+|1                |0.2205882 |0.0106952 |0.0066845 |0.2379679 |
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} freq.marginal.df \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+               mutate\PY{p}{(}Donated\PYZus{}In\PYZus{}March \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{marginal\PYZdq{}}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+               dcast\PY{p}{(}Donated\PYZus{}In\PYZus{}March \PY{o}{\PYZti{}} Frequency\PY{p}{,} value.var \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{marginal\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llll}
+ Donated\_In\_March & 1 & 2 & 3\\
+\hline
+	 marginal    & 0.9705882   & 0.02005348  & 0.009358289\\
+\end{tabular}
+
+
+    
+    2= Frequency between 18 and 33 times From this contingency table,
+P(March and 2)=0.0106952, P(2)=0.02005348 P(March\textbar{}2) = P(March
+and 2)/P(2) =0.0106952/0.02005348 = 0.53
+
+    \hypertarget{in-a-class-there-are-18-math-majors-and-25-physics-majors.-12-math-majors-are-females-as-well-as-20-physics-majors}{%
+\subsubsection{4. In a class there are 18 math majors and 25 physics
+majors. 12 math majors are females as well as 20 physics
+majors,}\label{in-a-class-there-are-18-math-majors-and-25-physics-majors.-12-math-majors-are-females-as-well-as-20-physics-majors}}
+
+\hypertarget{find-the-probability-that-the-student-selected-at-random-is-a-math-major-or-a-male.}{%
+\paragraph{Find the probability that the student selected at random is a
+math major or a male.
+}\label{find-the-probability-that-the-student-selected-at-random-is-a-math-major-or-a-male.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} P\PY{p}{(}math or male\PY{p}{)}\PY{o}{=}P\PY{p}{(}math\PY{p}{)}\PY{o}{+}P\PY{p}{(}male\PY{p}{)}\PY{o}{=}\PY{l+m}{18}\PY{o}{/}\PY{p}{(}\PY{l+m}{18}\PY{l+m}{+25}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{p}{(}\PY{l+m}{18}\PY{l+m}{+25}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m}{12}\PY{l+m}{+20}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{18}\PY{l+m}{+25}\PY{p}{)}\PY{o}{=}\PY{l+m}{0.674}
+\end{Verbatim}
+
+
+    \hypertarget{there-are-6-cars-in-a-car-shop-out-which-3-are-defective.-if-2-cars-are-picked-randomly}{%
+\subsubsection{5. There are 6 cars in a car shop out which 3 are
+defective. If 2 cars are picked
+randomly,}\label{there-are-6-cars-in-a-car-shop-out-which-3-are-defective.-if-2-cars-are-picked-randomly}}
+
+\hypertarget{find-the-probability-that-at-least-one-is-defective.}{%
+\paragraph{Find the probability that at least one is
+defective.}\label{find-the-probability-that-at-least-one-is-defective.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} P \PY{o}{=} \PY{p}{(}\PY{l+m}{3}C2\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m}{6}C2\PY{p}{)}\PY{o}{=}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{15}\PY{o}{=}\PY{l+m}{0.2}
+\end{Verbatim}
+
+
+    \hypertarget{in-the-past-for-every-attempt-to-make-a-call-there-was-a-70-probability-of-getting-the-call.}{%
+\subsubsection{6. In the past, for every attempt to make a call there
+was a 70\% probability of getting the
+call.}\label{in-the-past-for-every-attempt-to-make-a-call-there-was-a-70-probability-of-getting-the-call.}}
+
+\hypertarget{a.-calculate-the-probability-of-having-12-successes-in-20-attempts.-b.-plot-the-distribution-and-describe-the-shape}{%
+\paragraph{\texorpdfstring{ a. Calculate the probability of having 12
+successes in 20 attempts. b. Plot the distribution and describe the
+shape}{  a. Calculate the probability of having 12 successes in 20 attempts.   b. Plot the distribution and describe the shape}}\label{a.-calculate-the-probability-of-having-12-successes-in-20-attempts.-b.-plot-the-distribution-and-describe-the-shape}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} a. P\PY{o}{=}\PY{l+m}{20}C12\PY{o}{*}\PY{p}{(}\PY{l+m}{0.7}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{12}\PY{o}{*}\PY{p}{(}\PY{l+m}{0.3}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{8} \PY{o}{=}\PY{l+m}{0.114396739704861}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} dbinom\PY{p}{(}\PY{l+m}{12}\PY{p}{,}\PY{l+m}{20}\PY{p}{,}\PY{l+m}{0.7}\PY{p}{)}
+\end{Verbatim}
+
+
+    0.114396739704861
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} b.
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} pmf \PY{o}{\PYZlt{}\PYZhy{}} dbinom\PY{p}{(}\PY{l+m}{0}\PY{o}{:}\PY{l+m}{19}\PY{p}{,} size \PY{o}{=} \PY{l+m}{20}\PY{p}{,} prob \PY{o}{=} \PY{l+m}{0.7}\PY{p}{)}
+         plot\PY{p}{(}pmf\PY{p}{,} type \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{h\PYZdq{}}\PY{p}{,} ylim\PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{0.5}\PY{p}{)}\PY{p}{)}
+         points\PY{p}{(}pmf\PY{p}{,}pch\PY{o}{=}\PY{l+m}{19}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{a-study-has-shown-that-10-in-250-people-are-infected-with-a-common-cold-virus-however-the-gold-standard-tests-although-accurate-are-not-100-perfect-where-in-fact-if-a-person-has-the-virus-the-probability-of-testing-positive-is-90.}{%
+\subsubsection{7. A study has shown that 10 in 250 people are infected
+with a common cold virus, however, the gold standard tests although
+accurate are not 100\% perfect, where in fact if a person has the virus
+the probability of testing positive is
+90\%.}\label{a-study-has-shown-that-10-in-250-people-are-infected-with-a-common-cold-virus-however-the-gold-standard-tests-although-accurate-are-not-100-perfect-where-in-fact-if-a-person-has-the-virus-the-probability-of-testing-positive-is-90.}}
+
+\hypertarget{what-the-the-probability-that-a-person-chosen-at-random-has-the-virus-and-tests-positive}{%
+\paragraph{\texorpdfstring{ What the the probability that a person
+chosen at random has the virus and tests
+positive?}{   What the the probability that a person chosen at random has the virus and tests positive?}}\label{what-the-the-probability-that-a-person-chosen-at-random-has-the-virus-and-tests-positive}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} P\PY{p}{(}correct\PY{o}{|}virus\PY{p}{)}\PY{o}{=}\PY{l+m}{0.9}\PY{p}{,} P\PY{p}{(}virus\PY{p}{)}\PY{o}{=}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{25}\PY{p}{,} P\PY{p}{(}correct and virus\PY{p}{)}\PY{o}{=}P\PY{p}{(}virus\PY{p}{)}\PY{o}{*}P\PY{p}{(}correct\PY{o}{|}virus\PY{p}{)}\PY{o}{=}\PY{l+m}{0.036}
+\end{Verbatim}
+
+
+    \hypertarget{in-an-italian-gambling-game-a-win-is-when-i-get-at-least-11-when-three-six-sided-dice-are-thrown.-run-a-100000-trial-simulation-of-the-above-game-to-answer-the-following-questions}{%
+\subsubsection{8. In an Italian gambling game, a win is when I get at
+least 11 when three six-sided dice are thrown. Run a 100000 trial
+simulation of the above game to answer the following
+questions:}\label{in-an-italian-gambling-game-a-win-is-when-i-get-at-least-11-when-three-six-sided-dice-are-thrown.-run-a-100000-trial-simulation-of-the-above-game-to-answer-the-following-questions}}
+
+ 1. Would I, in the long run win the game? 2. Which is more likely when
+throwing three dice: an 11 or a 12? 3. What is the probability of
+getting a sum no greater than 7~or~no less then 15 when throwing three
+dice 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} dice\PYZus{}sample \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}\PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{sample}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{6}\PY{p}{,}\PY{l+m}{3}\PY{p}{,}replace \PY{o}{=} \PY{n+nb+bp}{T}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} a \PY{o}{=} \PY{k+kp}{replicate}\PY{p}{(}\PY{l+m}{100000}\PY{p}{,} \PY{k+kp}{ifelse}\PY{p}{(}dice\PYZus{}sample\PY{p}{(}\PY{p}{)}\PY{o}{\PYZgt{}=} \PY{l+m}{11}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}a                    }
+         \PY{k+kp}{sum}\PY{p}{(}a\PY{p}{)}\PY{o}{/}\PY{l+m}{100000}
+\end{Verbatim}
+
+
+    0.49964
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m}{1}\PY{l+m}{.} Not sure. The probability to win is nearly \PY{l+m}{0.5}\PY{l+m}{.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} a \PY{o}{=} \PY{k+kp}{replicate}\PY{p}{(}\PY{l+m}{100000}\PY{p}{,} \PY{k+kp}{ifelse}\PY{p}{(}dice\PYZus{}sample\PY{p}{(}\PY{p}{)}\PY{o}{==} \PY{l+m}{11}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}a                    }
+         \PY{k+kp}{sum}\PY{p}{(}a\PY{p}{)}\PY{o}{/}\PY{l+m}{100000}
+\end{Verbatim}
+
+
+    0.12536
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} a \PY{o}{=} \PY{k+kp}{replicate}\PY{p}{(}\PY{l+m}{100000}\PY{p}{,} \PY{k+kp}{ifelse}\PY{p}{(}dice\PYZus{}sample\PY{p}{(}\PY{p}{)}\PY{o}{==} \PY{l+m}{12}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}a                    }
+         \PY{k+kp}{sum}\PY{p}{(}a\PY{p}{)}\PY{o}{/}\PY{l+m}{100000}
+\end{Verbatim}
+
+
+    0.11479
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m}{2}\PY{l+m}{.} P\PY{p}{(}sum\PY{o}{=}\PY{l+m}{11}\PY{p}{)}\PY{o}{=}\PY{l+m}{0.12536}
+        P\PY{p}{(}sum\PY{o}{=}\PY{l+m}{12}\PY{p}{)}\PY{o}{=}\PY{l+m}{0.11479}
+        \PY{l+m}{12} is more likely to throw \PY{l+m}{3} dices
+\end{Verbatim}
+
+
+    \hypertarget{in-a-company-34-of-the-females-are-single}{%
+\subsubsection{9. In a company 3/4 of the females are
+single,}\label{in-a-company-34-of-the-females-are-single}}
+
+\hypertarget{calculate-the-probability-that-within-the-first-5-randomly-selected-females-we-find-the-first-single-woman-in-average-in-how-many-people-we-need-to-select-before-find-a-single-female}{%
+\subsubsection{\texorpdfstring{ Calculate the probability that within
+the first 5 randomly selected females we find the first single woman? In
+average in how many people we need to select before find a single
+female?}{    Calculate the probability that within the first 5 randomly selected females we find the first single woman?    In average in how many people we need to select before find a single female?}}\label{calculate-the-probability-that-within-the-first-5-randomly-selected-females-we-find-the-first-single-woman-in-average-in-how-many-people-we-need-to-select-before-find-a-single-female}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{l+m}{1}\PY{l+m}{.} P \PY{o}{=} \PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{o}{*}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{+}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{o}{*}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{o}{+}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{3}\PY{o}{*}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{o}{+}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{)}\PY{o}{\PYZca{}}\PY{l+m}{4}\PY{o}{*}\PY{l+m}{3}\PY{o}{/}\PY{l+m}{4}\PY{o}{=}\PY{l+m}{0.2}
+        \PY{l+m}{2}\PY{l+m}{.} \PY{l+m}{1}\PY{o}{/}P \PY{o}{=} \PY{l+m}{5}
+\end{Verbatim}
+
+
+    \hypertarget{lets-use-a-mouse-random-walk-the-closed-maze-where-a-mouse-always-start-on-the-first-chamber-and-can-move-randomly-to-different-chambers-until-it-finds-a-cheese-in-chambers-7-or-9.-from-the-following-diagram-calculate}{%
+\subsubsection{10. Lets use a mouse random walk The Closed Maze, where a
+mouse always start on the first chamber and can move randomly to
+different chambers until it finds a cheese in chambers 7 or 9. From the
+following diagram
+calculate:}\label{lets-use-a-mouse-random-walk-the-closed-maze-where-a-mouse-always-start-on-the-first-chamber-and-can-move-randomly-to-different-chambers-until-it-finds-a-cheese-in-chambers-7-or-9.-from-the-following-diagram-calculate}}
+
+\begin{figure}
+\centering
+\includegraphics{Mouse_random.png}
+\caption{title}
+\end{figure}
+
+ 1. The transition matrix 2. Write a function that simulates this random
+walk (5000 times ) the mouse starts always from the 1st chamber, 3. Plot
+the mouse random walk simulation using \textbf{ONE} of the following
+vector (steps - N) sizes (10,15, 50,100), 4. what are the probabilities
+of finishing in each chamber at each one of these steps sizes? (table of
+4 rows (vector size -N) vs 9 columns (chambers))
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{k+kn}{library}\PY{p}{(}markovchain\PY{p}{)}
+         
+         P\PY{o}{=}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{9}\PY{p}{,}\PY{l+m}{9}\PY{p}{)}
+         
+         P\PY{p}{[}\PY{l+m}{1}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0.5}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{2}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{3}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{2}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{4}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{5}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{4}\PY{p}{,}\PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{6}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{7}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{8}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{,}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{o}{/}\PY{l+m}{3}\PY{p}{)}
+         P\PY{p}{[}\PY{l+m}{9}\PY{p}{,}\PY{p}{]}\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{0}\PY{p}{,} \PY{l+m}{1}\PY{p}{)}
+         
+         P
+\end{Verbatim}
+
+
+    \begin{tabular}{lllllllll}
+	 0.0000000 & 0.50      & 0.0000000 & 0.50      & 0.0000000 & 0.00      & 0.0000000 & 0.00      & 0.0000000\\
+	 0.3333333 & 0.00      & 0.3333333 & 0.00      & 0.3333333 & 0.00      & 0.0000000 & 0.00      & 0.0000000\\
+	 0.0000000 & 0.50      & 0.0000000 & 0.00      & 0.0000000 & 0.50      & 0.0000000 & 0.00      & 0.0000000\\
+	 0.3333333 & 0.00      & 0.0000000 & 0.00      & 0.3333333 & 0.00      & 0.3333333 & 0.00      & 0.0000000\\
+	 0.0000000 & 0.25      & 0.0000000 & 0.25      & 0.0000000 & 0.25      & 0.0000000 & 0.25      & 0.0000000\\
+	 0.0000000 & 0.00      & 0.3333333 & 0.00      & 0.3333333 & 0.00      & 0.0000000 & 0.00      & 0.3333333\\
+	 0.0000000 & 0.00      & 0.0000000 & 0.00      & 0.0000000 & 0.00      & 1.0000000 & 0.00      & 0.0000000\\
+	 0.0000000 & 0.00      & 0.0000000 & 0.00      & 0.3333333 & 0.00      & 0.3333333 & 0.00      & 0.3333333\\
+	 0.0000000 & 0.00      & 0.0000000 & 0.00      & 0.0000000 & 0.00      & 0.0000000 & 0.00      & 1.0000000\\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} Markov2 \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}N\PY{p}{,} Pi0\PY{p}{,} P\PY{p}{)}\PY{p}{\PYZob{}} \PY{c+c1}{\PYZsh{}N = number of steps, N0 = initial probs, P matrix}
+            P0 \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.199}\PY{p}{,}\PY{l+m}{0.4}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{)}
+            P \PY{o}{=} P\PY{o}{*}P0
+            X\PY{o}{=}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}N\PY{p}{)}
+            a \PY{o}{=} \PY{l+m}{1} \PY{c+c1}{\PYZsh{}\PYZsh{}Start the random walk in position 1}
+            X\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{o}{=}a
+            \PY{k+kr}{for} \PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{2}\PY{o}{:}N\PY{p}{)} \PY{p}{\PYZob{}}
+              a\PY{o}{=}\PY{k+kp}{sample}\PY{p}{(}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{9}\PY{p}{)}\PY{p}{,}\PY{l+m}{1}\PY{p}{,}replace\PY{o}{=}\PY{n+nb+bp}{T}\PY{p}{,} P\PY{p}{[}a\PY{p}{,}\PY{p}{]}\PY{p}{)}
+              X\PY{p}{[}i\PY{p}{]}\PY{o}{=}a
+            \PY{p}{\PYZcb{}}
+            b \PY{o}{=} \PY{k+kp}{as.vector}\PY{p}{(}X\PY{p}{)}
+            \PY{k+kr}{return}\PY{p}{(}b\PY{p}{)}
+          \PY{p}{\PYZcb{}}
+          P0 \PY{o}{=} \PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.199}\PY{p}{,}\PY{l+m}{0.4}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{,}\PY{l+m}{0.0005}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Markov2(10,P0,P)}
+          N \PY{o}{=}\PY{l+m}{10} \PY{c+c1}{\PYZsh{} Use 10 steps}
+          plot\PY{p}{(}\PY{k+kc}{NA}\PY{p}{,} xlim\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}N\PY{p}{)}\PY{p}{,} ylim\PY{o}{=}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{l+m}{10}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}empty plot}
+          datas \PY{o}{=} \PY{k+kt}{matrix}\PY{p}{(}ncol \PY{o}{=} N\PY{p}{,} nrow \PY{o}{=} \PY{l+m}{5000}\PY{p}{)}
+          \PY{k+kr}{for} \PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{5000}\PY{p}{)}\PY{p}{\PYZob{}}
+            datas\PY{p}{[}i\PY{p}{,}\PY{p}{]} \PY{o}{=} Markov2\PY{p}{(}N\PY{p}{,}P0\PY{p}{,}P\PY{p}{)}
+            condir \PY{o}{=} datas\PY{p}{[}i\PY{p}{,}\PY{p}{]}
+            col \PY{o}{=} \PY{p}{(}condir\PY{p}{[}\PY{l+m}{10}\PY{p}{]}\PY{o}{==}\PY{l+m}{7} \PY{o}{|} condir\PY{p}{[}\PY{l+m}{10}\PY{p}{]}\PY{o}{==}\PY{l+m}{9}\PY{p}{)}
+            lines\PY{p}{(}condir\PY{p}{,} lwd\PY{o}{=}\PY{l+m}{2}\PY{p}{,}col \PY{o}{=} \PY{k+kp}{ifelse}\PY{p}{(}\PY{k+kp}{col}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{coral\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{forestgreen\PYZdq{}}\PY{p}{)}\PY{p}{)}
+          \PY{p}{\PYZcb{}}
+          \PY{c+c1}{\PYZsh{} length(datas)}
+          \PY{c+c1}{\PYZsh{} datas}
+          \PY{c+c1}{\PYZsh{} datas[45001:50000]}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{k+kp}{table}\PY{p}{(}datas\PY{p}{[}\PY{l+m}{45001}\PY{o}{:}\PY{l+m}{50000}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+
+   2    4    6    7    8    9 
+ 681  475  471 2083  214 1076 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} what are the probabilities of finishing \PY{k+kr}{in} each chamber at each one of these steps sizes\PY{o}{?} \PY{p}{(}table of \PY{l+m}{4} rows \PY{p}{(}\PY{k+kt}{vector} size \PY{o}{\PYZhy{}}N\PY{p}{)} vs \PY{l+m}{9} columns \PY{p}{(}chambers\PY{p}{)}\PY{p}{)}
+        
+        step size\PY{o}{:} \PY{p}{(}\PY{l+m}{10}\PY{p}{,}\PY{l+m}{15}\PY{p}{,} \PY{l+m}{50}\PY{p}{,}\PY{l+m}{100}\PY{p}{)}
+        
+        step \PY{l+m}{1}  \PY{l+m}{2}    \PY{l+m}{4}  \PY{l+m}{5}  \PY{l+m}{6}    \PY{l+m}{7}    \PY{l+m}{8}    \PY{l+m}{9} 
+        \PY{l+m}{10}   \PY{l+m}{0} \PY{l+m}{717}  \PY{l+m}{448} \PY{l+m}{0} \PY{l+m}{430} \PY{l+m}{2107}  \PY{l+m}{231} \PY{l+m}{1067} 
+        \PY{l+m}{15}   \PY{l+m}{0} \PY{l+m}{725}  \PY{l+m}{450} \PY{l+m}{0} \PY{l+m}{455} \PY{l+m}{2076}  \PY{l+m}{194} \PY{l+m}{1100} 
+        \PY{l+m}{50}   \PY{l+m}{0} \PY{l+m}{732}  \PY{l+m}{463} \PY{l+m}{0} \PY{l+m}{505} \PY{l+m}{2069}  \PY{l+m}{214} \PY{l+m}{1017} 
+        \PY{l+m}{100}  \PY{l+m}{0} \PY{l+m}{681}  \PY{l+m}{475} \PY{l+m}{0} \PY{l+m}{471} \PY{l+m}{2083}  \PY{l+m}{214} \PY{l+m}{1076}
+        
+        step \PY{l+m}{1}  \PY{l+m}{2}     \PY{l+m}{4}    \PY{l+m}{5}  \PY{l+m}{6}       \PY{l+m}{7}     \PY{l+m}{8}     \PY{l+m}{9} 
+        \PY{l+m}{10}   \PY{l+m}{0} \PY{l+m}{0.14}  \PY{l+m}{0.09}  \PY{l+m}{0} \PY{l+m}{0.086}   \PY{l+m}{0.42}  \PY{l+m}{0.046} \PY{l+m}{0.21} 
+        \PY{l+m}{15}   \PY{l+m}{0} \PY{l+m}{0.15}  \PY{l+m}{0.09}  \PY{l+m}{0} \PY{l+m}{0.091}   \PY{l+m}{0.4}   \PY{l+m}{0.388} \PY{l+m}{0.22} 
+        \PY{l+m}{50}   \PY{l+m}{0} \PY{l+m}{0.15}  \PY{l+m}{0.09}  \PY{l+m}{0} \PY{l+m}{0.11}    \PY{l+m}{0.4}   \PY{l+m}{0.428} \PY{l+m}{0.2} 
+        \PY{l+m}{100}  \PY{l+m}{0} \PY{l+m}{0.14}  \PY{l+m}{0.095} \PY{l+m}{0} \PY{l+m}{0.942}   \PY{l+m}{0.41}  \PY{l+m}{0.428} \PY{l+m}{0.2}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
